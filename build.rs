@@ -1,8 +1,12 @@
 extern crate gcc;
 
 fn main() {
-    gcc::compile_library("libyoga.a",
-                         &["yoga/yoga/Yoga.c",
-                           "yoga/yoga/YGEnums.c",
-                           "yoga/yoga/YGNodeList.c"]);
+	let mut lib = gcc::Config::new();
+	lib.flag("-std=c99");
+
+	lib.file("yoga/yoga/Yoga.c")
+	   .file("yoga/yoga/YGEnums.c")
+	   .file("yoga/yoga/YGNodeList.c");
+
+    lib.compile("libyoga.a");
 }
